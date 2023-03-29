@@ -4,9 +4,9 @@ import java.util.Objects;
 
 /**
 *
-* Nome:
-* Curso:
-* Matrícula:
+* Nome:Eduardo Silvino Cristovão
+* Curso: TSI
+* Matrícula:20221TSIIG0252
 * 
 */
 public class ContaBancaria {
@@ -53,8 +53,12 @@ public class ContaBancaria {
 	 * @param valor
 	 */
 	public void depositar(double valor) {
-		
-	}
+		if ( valor < 0) {
+	     System.out.print("Valor invalido para deposito.");
+			} else
+	      saldo += valor;
+			}
+	
 
 	/**
 	 * Metodo sacar deve descrementar do saldo o valor passado como argumento.
@@ -69,7 +73,23 @@ public class ContaBancaria {
 	 * @param valor
 	 */
 	public void sacar(double valor) {
-		
+		if (this.status == false) {
+
+			System.out.print("Conta inativa.");
+
+			} else if (valor <= 0) {
+
+			System.out.print("Valor invalido para saque.");
+
+			} else if (valor > saldo) {
+
+			System.out.print("Saldo insuficiente.");
+
+			} else {
+
+			saldo -= valor;
+
+			}
 	}
 
 	/**
@@ -81,7 +101,19 @@ public class ContaBancaria {
 	 * fechar a conta. Utilize System.out.print();
 	 */
 	public void fecharConta() {
-		
+		if (this.status == false) {
+
+			System.out.print("Conta ja inativa.");
+
+			} else if (this.saldo != 0) {
+
+			System.out.print("Conta com saldo. Nao eh possivel fecha-la.");
+
+			} else {
+
+			this.status = false;
+
+			}
 	}
 
 	/**
@@ -90,7 +122,15 @@ public class ContaBancaria {
 	 * ativa." deve ser exibida no console. Utilize System.out.print();
 	 */
 	public void reabrirConta() {
+		if (this.status) {
 
+			System.out.print("Conta ja ativa.");
+
+			} else {
+
+			this.status = true;
+
+			}
 	}
 
 	/**
@@ -108,7 +148,24 @@ public class ContaBancaria {
 	 * @param destino
 	 */
 	public void realizarTransferencia(double quantia, ContaBancaria destino) {
+		if (this.status == false) {
 
+			System.out.print("Conta de origem inativa.");
+
+			} else if (destino.status == false) {
+
+			System.out.print("Conta de destino inativa.");
+
+			} else if (quantia > this.saldo) {
+
+			System.out.print("Saldo insuficiente para transferencia.");
+
+			} else {
+            
+			this.saldo -= quantia;
+			destino.saldo += quantia;
+
+			}
 	}
 
 	public int getNumeroConta() {
@@ -132,7 +189,7 @@ public class ContaBancaria {
 	 */
 	@Override
 	public int hashCode() {
-		return 0;
+		return Objects.hash(numeroConta, saldo, status, titular);
 	}
 
 	/**
@@ -140,7 +197,16 @@ public class ContaBancaria {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		return false;
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ContaBancaria other = (ContaBancaria) obj;
+		return numeroConta == other.numeroConta
+				&& Double.doubleToLongBits(saldo) == Double.doubleToLongBits(other.saldo) && status == other.status
+				&& Objects.equals(titular, other.titular);
 	}
 	
 	

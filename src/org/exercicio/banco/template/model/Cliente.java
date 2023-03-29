@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 /**
 *
-* Nome:
-* Curso:
-* Matrícula:
+* Nome:Eduardo Silvino Cristovão
+* Curso:TSI
+* Matrícula:20221TSIIG0252
 * 
 */
 public class Cliente {
@@ -31,7 +31,15 @@ public class Cliente {
      * @param c
      */
     public void adicionarConta(ContaBancaria c) {
+    		if(contas.contains(c)) {
 
+    			System.out.print("A conta jah estah associada a este cliente.");
+    	}
+            else {
+          contas.add(c);
+          System.out.print("Conta adicionada com sucesso!");
+
+    	}
     }
 
     
@@ -45,7 +53,17 @@ public class Cliente {
      * @param c
      */
     public void removerConta(ContaBancaria c) {
+    	if(contas.contains(c)) {
 
+            contas.remove(c);
+
+    		System.out.print("Conta removida com sucesso!");
+
+    		}else {
+
+    		System.out.print("A conta nao esta associada a este cliente.");
+
+       }
     }
 
     /**
@@ -59,7 +77,20 @@ public class Cliente {
      * @return
      */
     public ContaBancaria localizarContaNumero(int numero) {
-        return null;
+    	
+
+    		for(int i = 0; i < contas.size(); i++) {
+
+    		ContaBancaria temp = contas.get(i);
+
+    		if(temp.getNumeroConta() == numero) {
+    			System.out.print("Conta encontrada!");
+    			return temp;
+    		}
+
+    		}
+    		System.out.print("Conta nao encontrada.");
+    	return null;
     }
 
     
@@ -74,7 +105,13 @@ public class Cliente {
      * @return
      */
     public boolean localizarConta(ContaBancaria c) {
-        return false;
+       
+       if(contas.contains(c)) {
+    	   System.out.print("Conta encontrada!");
+    	   return true;
+       }
+       System.out.print("Conta nao encontrada.");
+    	return false;
     }
 
     /**
@@ -86,7 +123,13 @@ public class Cliente {
      * @return
      */
     public double balancoEntreContas() {
-        return 0.0;
+       float balancoTotal = 0;
+        for(int i = 0 ; i < contas.size();i++) {
+        	ContaBancaria c = contas.get(i);
+        	balancoTotal += c.getSaldo();
+        }
+        System.out.print("Balanco entre contas: RS" + balancoTotal);
+        return balancoTotal;
     }
     
     public ArrayList<ContaBancaria> getContas() {
